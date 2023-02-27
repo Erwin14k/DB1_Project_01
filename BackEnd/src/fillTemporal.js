@@ -1,14 +1,14 @@
 const fs = require('fs');
 const csv = require('csv-parser');
 const oracledb = require('oracledb');
-
+const { oracle } = require('./config/config');
 
 // Database User
-const user = 'pandemic';
+const user = oracle.user;
 // Database Password
-const password = 'admin';
+const password = oracle.password;
 // Database ConnectString
-const connectString = 'localhost:1521/orclpdb';
+const connectString = oracle.connectString;
 
 // Function to insert all data in the temporal table.
 async function fillTemporal() {

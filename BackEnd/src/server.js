@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const fillTemporal = require('./fillTemporal');
 const emptyTemporal= require('./emptyTemporal');
+const fillModel = require('./fillModel');
+const { server } = require('./config/config');
 
 // Principal route of the server
 app.get('/', (req, res) => {
@@ -30,9 +32,20 @@ app.get('/eliminarTemporal', async (req, res) => {
     }
 });
 
+// Fill model route
+app.get('/cargarModelo', async (req, res) => {
+    try {
+        await fillModel();
+        res.send('Model loaded Successfully!!');
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error Loading Model Data :(');
+    }
+});
+
 // Initialize the server
 app.listen(3000, () => {
-    console.log('Server running on port 3000 !!!');
+    console.log(`Server running on port: ${server.port}`);
 });
 
 
