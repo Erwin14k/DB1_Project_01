@@ -1,8 +1,10 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const fillTemporal = require('./fillTemporal');
 const emptyTemporal= require('./emptyTemporal');
 const fillModel = require('./fillModel');
+const deleteModel = require('./deleteModel');
 const { server } = require('./config/config');
 
 // Principal route of the server
@@ -40,6 +42,17 @@ app.get('/cargarModelo', async (req, res) => {
     } catch (err) {
         console.error(err);
         res.status(500).send('Error Loading Model Data :(');
+    }
+});
+
+// Delete model route
+app.get('/eliminarModelo', async (req, res) => {
+    try {
+        await deleteModel();
+        res.send('Model Deleted Successfully!!');
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error Deliting Model Data :(');
     }
 });
 
