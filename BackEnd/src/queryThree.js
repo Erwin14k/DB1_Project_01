@@ -53,7 +53,7 @@ async function queryThree() {
 
 
     } catch (err) {
-        console.error('Error In Query One:', err);
+        console.error('Error In Query Three:', err);
     } finally {
         if (conn) {
         try {

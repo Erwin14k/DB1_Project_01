@@ -7,7 +7,7 @@ const password = oracle.password;
 // Database ConnectString
 const connectString = oracle.connectString;
 
-async function queryTwo() {
+async function querySix() {
     let conn;
     try {
         conn = await oracledb.getConnection({
@@ -17,40 +17,42 @@ async function queryTwo() {
         });
 
         /*
-            Query #2 : 	Show the first name, last name of all quarantined victims who
-				presented an effectiveness greater than 5 in the treatment
-				"Blood transfusions".
+            Query #6 : 	Show first name, last name, and date of death for all
+				victims who moved through the address “1987 Delphine Well” to the
+				which were applied "Management of blood pressure" as treatment.
         */
-        const result= await conn.execute(`SELECT v.VICTIM_NAME, v.VICTIM_LAST_NAME
-            FROM VICTIM v
-            JOIN TREATMENT_VICTIM tv ON v.VICTIM_ID = tv.VICTIM_ID
-            JOIN TREATMENT t ON tv.TREATMENT_ID = t.TREATMENT_ID
-            WHERE v.VICTIM_STATUS = 'En cuarentena'
-            AND t.TREATMENT_NAME = 'Transfusiones de sangre'
-            AND tv.VICTIM_EFECTIVITY > 5`
+        const result= await conn.execute(`SELECT VICTIM_NAME, VICTIM_LAST_NAME, DEATH_DATE
+            FROM VICTIM 
+            JOIN TREATMENT_VICTIM ON VICTIM.VICTIM_ID = TREATMENT_VICTIM.VICTIM_ID
+            JOIN TREATMENT ON TREATMENT_VICTIM.TREATMENT_ID = TREATMENT.TREATMENT_ID
+            JOIN LOCATION ON VICTIM.VICTIM_ID = LOCATION.VICTIM_ID
+            WHERE 
+                LOCATION.VICTIM_LOCATION = '1987 Delphine Well' AND 
+                TREATMENT.TREATMENT_NAME = 'Manejo de la presion arterial'`
         );
 
         // Commit to database
         await conn.commit();
 
         let html = "<html><body><table>";
-        html += "<tr><th>Victim Name</th><th>Victim Last Name</th></tr>";
+        html += "<tr><th>Victim Name</th><th>Victim Last Name</th><th>Death Date</th></tr>";
 
         for (const row of result.rows) {
             html += "<tr>";
             html += "<td>" + row[0] + "</td>";
             html += "<td>" + row[1] + "</td>";
+            html += "<td>" + row[2] + "</td>";
             html += "</tr>";
         }
 
         html += "</table></body></html>";
-        console.log('Query 2 completed successfully!!');
+        console.log('Query 6 completed successfully!!');
         // return query in html format
         return html;
 
 
     } catch (err) {
-        console.error('Error In Query Two:', err);
+        console.error('Error In Query Six:', err);
     } finally {
         if (conn) {
         try {
@@ -62,4 +64,4 @@ async function queryTwo() {
     }
 }
 
-module.exports = queryTwo;
+module.exports = querySix;

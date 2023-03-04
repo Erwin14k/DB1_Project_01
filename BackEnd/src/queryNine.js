@@ -7,7 +7,7 @@ const password = oracle.password;
 // Database ConnectString
 const connectString = oracle.connectString;
 
-async function queryTwo() {
+async function queryNine() {
     let conn;
     try {
         conn = await oracledb.getConnection({
@@ -17,24 +17,26 @@ async function queryTwo() {
         });
 
         /*
-            Query #2 : 	Show the first name, last name of all quarantined victims who
-				presented an effectiveness greater than 5 in the treatment
-				"Blood transfusions".
+            Query #9 : 	Show the percentage of victims that correspond to each
+				hospital.
         */
-        const result= await conn.execute(`SELECT v.VICTIM_NAME, v.VICTIM_LAST_NAME
-            FROM VICTIM v
-            JOIN TREATMENT_VICTIM tv ON v.VICTIM_ID = tv.VICTIM_ID
-            JOIN TREATMENT t ON tv.TREATMENT_ID = t.TREATMENT_ID
-            WHERE v.VICTIM_STATUS = 'En cuarentena'
-            AND t.TREATMENT_NAME = 'Transfusiones de sangre'
-            AND tv.VICTIM_EFECTIVITY > 5`
+        const result= await conn.execute(`SELECT 
+            H.HOSPITAL_NAME, 
+            COUNT(V.VICTIM_ID) * 100 / (SELECT COUNT(*) FROM VICTIM) AS PERCENTAGE 
+            FROM 
+                HOSPITAL H 
+                LEFT JOIN VICTIM V ON H.HOSPITAL_ID = V.HOSPITAL_ID 
+            GROUP BY 
+                H.HOSPITAL_NAME 
+            ORDER BY 
+                PERCENTAGE DESC`
         );
 
         // Commit to database
         await conn.commit();
 
         let html = "<html><body><table>";
-        html += "<tr><th>Victim Name</th><th>Victim Last Name</th></tr>";
+        html += "<tr><th>Hospital</th><th>Percentage</th></tr>";
 
         for (const row of result.rows) {
             html += "<tr>";
@@ -44,13 +46,13 @@ async function queryTwo() {
         }
 
         html += "</table></body></html>";
-        console.log('Query 2 completed successfully!!');
+        console.log('Query 9 completed successfully!!');
         // return query in html format
         return html;
 
 
     } catch (err) {
-        console.error('Error In Query Two:', err);
+        console.error('Error In Query Nine:', err);
     } finally {
         if (conn) {
         try {
@@ -62,4 +64,4 @@ async function queryTwo() {
     }
 }
 
-module.exports = queryTwo;
+module.exports = queryNine;

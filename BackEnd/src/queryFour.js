@@ -52,7 +52,7 @@ async function queryFour() {
 
 
     } catch (err) {
-        console.error('Error In Query One:', err);
+        console.error('Error In Query Four:', err);
     } finally {
         if (conn) {
         try {

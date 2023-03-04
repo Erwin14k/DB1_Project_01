@@ -10,6 +10,11 @@ const queryTwo = require('./queryTwo');
 const queryThree = require('./queryThree');
 const queryFour = require('./queryFour');
 const queryFive = require('./queryFive');
+const querySix = require('./querySix');
+const querySeven = require('./querySeven');
+const queryEight = require('./queryEight');
+const queryNine = require('./queryNine');
+const queryTen = require('./queryTen');
 const { server } = require('./config/config');
 
 // Principal route of the server
@@ -117,6 +122,61 @@ app.get('/consulta5', async (req, res) => {
     } catch (err) {
         console.error(err);
         res.status(500).send('Error in query number five');
+    }
+});
+
+// Query #6 route
+app.get('/consulta6', async (req, res) => {
+    try {
+        const result=await querySix();
+        res.send(result);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error in query number six');
+    }
+});
+
+// Query #7 route
+app.get('/consulta7', async (req, res) => {
+    try {
+        const result=await querySeven();
+        res.send(result);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error in query number seven');
+    }
+});
+
+// Query #8 route
+app.get('/consulta8', async (req, res) => {
+    try {
+        const result=await queryEight();
+        res.send(result);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error in query number eight');
+    }
+});
+
+// Query #9 route
+app.get('/consulta9', async (req, res) => {
+    try {
+        const result=await queryNine();
+        res.send(result);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error in query number nine');
+    }
+});
+
+// Query #10 route
+app.get('/consulta10', async (req, res) => {
+    try {
+        const result=await queryTen();
+        res.send(result);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error in query number ten');
     }
 });
 
