@@ -28,7 +28,8 @@ async function queryThree() {
                 GROUP BY VICTIM_ID
                 HAVING COUNT(*) > 3
             ) alias ON VICTIM.VICTIM_ID = alias.VICTIM_ID
-            WHERE DEATH_DATE IS NOT NULL`
+            WHERE DEATH_DATE IS NOT NULL
+            ORDER BY VICTIM_NAME, VICTIM_LAST_NAME`
         );
 
         // Commit to database

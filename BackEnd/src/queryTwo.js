@@ -27,7 +27,8 @@ async function queryTwo() {
             JOIN TREATMENT t ON tv.TREATMENT_ID = t.TREATMENT_ID
             WHERE v.VICTIM_STATUS = 'En cuarentena'
             AND t.TREATMENT_NAME = 'Transfusiones de sangre'
-            AND tv.VICTIM_EFECTIVITY > 5`
+            AND tv.VICTIM_EFECTIVITY > 5
+            ORDER BY v.VICTIM_NAME, v.VICTIM_LAST_NAME`
         );
 
         // Commit to database

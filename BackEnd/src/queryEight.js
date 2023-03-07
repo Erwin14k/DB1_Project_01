@@ -37,7 +37,7 @@ async function queryEight() {
                 SELECT COUNT(TREATMENT_ID) AS TREATMENT_COUNT
                 FROM TREATMENT_VICTIM
                 GROUP BY VICTIM_ID))
-            ORDER BY TREATMENT_COUNT DESC`
+                ORDER BY TREATMENT_COUNT DESC,V.VICTIM_NAME ASC, V.VICTIM_LAST_NAME ASC`
         );
 
         // Commit to database

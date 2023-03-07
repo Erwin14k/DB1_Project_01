@@ -28,8 +28,7 @@ async function queryNine() {
                 LEFT JOIN VICTIM V ON H.HOSPITAL_ID = V.HOSPITAL_ID 
             GROUP BY 
                 H.HOSPITAL_NAME 
-            ORDER BY 
-                PERCENTAGE DESC`
+            ORDER BY PERCENTAGE DESC, H.HOSPITAL_NAME ASC`
         );
 
         // Commit to database

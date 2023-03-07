@@ -28,7 +28,8 @@ async function querySix() {
             JOIN LOCATION ON VICTIM.VICTIM_ID = LOCATION.VICTIM_ID
             WHERE 
                 LOCATION.VICTIM_LOCATION = '1987 Delphine Well' AND 
-                TREATMENT.TREATMENT_NAME = 'Manejo de la presion arterial'`
+                TREATMENT.TREATMENT_NAME = 'Manejo de la presion arterial'
+                ORDER BY VICTIM_NAME ASC, VICTIM_LAST_NAME ASC`
         );
 
         // Commit to database

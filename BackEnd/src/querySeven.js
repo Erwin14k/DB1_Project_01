@@ -35,7 +35,7 @@ async function queySeven() {
                 JOIN VICTIM V2 ON C1.VICTIM_ID = V2.VICTIM_ID AND V1.VICTIM_NAME = V2.VICTIM_NAME AND V1.VICTIM_LAST_NAME = V2.VICTIM_LAST_NAME
                 GROUP BY C1.VICTIM_ID, C1.ASSOCIATED_ID
                 HAVING COUNT(DISTINCT V2.VICTIM_ID) > 2
-            )`
+                )ORDER BY V.VICTIM_NAME, V.VICTIM_LAST_NAME`
         );
 
         // Commit to database

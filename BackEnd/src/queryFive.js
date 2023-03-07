@@ -26,7 +26,7 @@ async function queyFive() {
             JOIN TREATMENT t ON tv.TREATMENT_ID = t.TREATMENT_ID
             WHERE t.TREATMENT_NAME = 'Oxigeno'
             GROUP BY v.VICTIM_ID,v.VICTIM_NAME, v.VICTIM_LAST_NAME
-            ORDER BY NUM_TREATMENTS DESC
+            ORDER BY v.VICTIM_NAME, v.VICTIM_LAST_NAME, NUM_TREATMENTS DESC
             FETCH FIRST 5 ROWS ONLY`
         );
 

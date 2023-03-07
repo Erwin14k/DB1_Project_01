@@ -42,7 +42,8 @@ async function queryTen() {
                 CONTACT.PHYSICAL_CONTACT, 
                 VICTIM1.HOSPITAL_ID
                 ) 
-            WHERE RN = 1`
+            WHERE RN = 1
+            ORDER BY PORCENTAJE_VICTIMAS DESC`
         );
 
         // Commit to database
