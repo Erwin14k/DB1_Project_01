@@ -11,3 +11,4 @@ module.exports = {
         connectString: process.env.ORACLE_CONNSTR,
     },
 };
+

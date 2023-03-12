@@ -181,7 +181,7 @@ app.get('/consulta10', async (req, res) => {
 });
 
 // Initialize the server
-app.listen(3000, () => {
+app.listen(server.port, () => {
     console.log(`Server running on port: ${server.port}`);
 });
 
