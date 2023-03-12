@@ -13,7 +13,7 @@
     <ul>
       <li>Base De Datos: Oracle DB, Versión 21c</li>
       <li>Backend: Node.Js Con Express</li>
-    <ul>
+    </ul>
     <br>
     <br>
     <h2 style="text-align:center;">Seguridad De Información</h2>
