@@ -22,13 +22,16 @@ async function queryNine() {
         */
         const result= await conn.execute(`SELECT 
             H.HOSPITAL_NAME, 
-            COUNT(V.VICTIM_ID) * 100 / (SELECT COUNT(*) FROM VICTIM) AS PERCENTAGE 
+            COUNT(V.VICTIM_ID) * 100 / (SELECT COUNT(*) FROM VICTIM WHERE HOSPITAL_ID IS NOT NULL) AS PERCENTAGE 
             FROM 
-                HOSPITAL H 
-                LEFT JOIN VICTIM V ON H.HOSPITAL_ID = V.HOSPITAL_ID 
+            HOSPITAL H 
+            LEFT JOIN VICTIM V ON H.HOSPITAL_ID = V.HOSPITAL_ID 
+            WHERE 
+                V.HOSPITAL_ID IS NOT NULL
             GROUP BY 
                 H.HOSPITAL_NAME 
-            ORDER BY PERCENTAGE DESC, H.HOSPITAL_NAME ASC`
+            ORDER BY 
+                PERCENTAGE DESC, H.HOSPITAL_NAME ASC`
         );
 
         // Commit to database
